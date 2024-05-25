@@ -1,7 +1,8 @@
 import React from "react";
+import Router from "./shared/Router";
 
 const App = () => {
-  return <div>가계부</div>;
+  return <Router />;
 };
 
 export default App;
@@ -9,12 +10,12 @@ export default App;
 /* 
 아래 순서대로 진행하시는 것을 권장 드립니다. 본인이 할 수 있는 항목까지 최대한 도전해 보세요!
 
-- [ ]  (1) 프로젝트 셋업
+- [x]  (1) 프로젝트 셋업
     - Vite 를 이용해서 리액트 프로젝트를 셋업.
     - pages/ , components/ 폴더 작성 및 필요 컴포넌트 사전 작성
     - styled-components, react-router-dom 설치
     - index.html에 있는 title 변경
-- [ ]  (2) “props-drilling” 브랜치 생성 및 이동
+- [x]  (2) “props-drilling” 브랜치 생성 및 이동
     
     Remind: props-drilling 브랜치에서는 context 나 redux는 사용하지 않습니다!
     
@@ -22,7 +23,7 @@ export default App;
     git checkout -b props-drilling
     ```
     
-- [ ]  (3) Router 셋업
+- [x]  (3) Router 셋업
     - react-router-dom을 이용하여 홈화면과 상세화면에 대한 라우터 설정을 해주세요.
 - [ ]  (4) 전역스타일링 적용
     - styled-components 를 이용해 주세요. (App.css, index.css 는 삭제하셔도 좋습니다.)
