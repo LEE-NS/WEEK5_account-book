@@ -3,12 +3,18 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "../pages/Home";
 import Detail from "../pages/Detail";
 
-const Router = () => {
+const Router = ({ expenses, setExpenses }) => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="detail" element={<Detail />} />
+        <Route
+          path="/"
+          element={<Home expenses={expenses} setExpenses={setExpenses} />}
+        />
+        <Route
+          path="detail/:id"
+          element={<Detail expenses={expenses} setExpenses={setExpenses} />}
+        />
       </Routes>
     </BrowserRouter>
   );
