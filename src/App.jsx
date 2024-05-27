@@ -2,15 +2,7 @@ import React, { useState } from "react";
 import Router from "./shared/Router";
 
 const App = () => {
-  const [expenses, setExpenses] = useState([
-    {
-      id: 1,
-      date: "9999-99-99",
-      money: "999,999",
-      category: "식비",
-      job: "중국집 점심식사",
-    },
-  ]);
+  const [expenses, setExpenses] = useState([]);
   return <Router expenses={expenses} setExpenses={setExpenses} />;
 };
 

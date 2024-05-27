@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import styled from "styled-components";
 import uuid from "react-uuid";
 
-const AccountForm = ({ expenses, setExpenses }) => {
+const AccountForm = ({ month, setMonth, expenses, setExpenses }) => {
   const date = useRef("");
   const money = useRef(null);
   const category = useRef("");
@@ -32,9 +32,9 @@ const AccountForm = ({ expenses, setExpenses }) => {
       job: job.current.value,
     };
 
-    setExpenses([...expenses, newExpense]);
+    const totalExpenses = [...expenses, newExpense];
 
-    window.localStorage.setItem;
+    window.localStorage.setItem("expenses", JSON.stringify(totalExpenses));
 
     /* form 초기화 */
     date.current.value = "";
@@ -49,7 +49,7 @@ const AccountForm = ({ expenses, setExpenses }) => {
         <StUl>
           <li>
             <StLabel>날짜</StLabel>
-            <StInput type="date" ref={date} />
+            <StInput type="text" ref={date} placeholder="0000-00-00" />
           </li>
           <li>
             <StLabel>금액</StLabel>

@@ -6,9 +6,11 @@ const AccountSection = ({ expenses, setExpenses }) => {
   return (
     <StWrap>
       <StUl>
-        {expenses?.map((item) => (
-          <AccountItem key={item.id} item={item} />
-        ))}
+        {expenses.length !== 0 ? (
+          expenses.map((item) => <AccountItem key={item.id} item={item} />)
+        ) : (
+          <StNoItemLi>지출 내역이 없습니다.</StNoItemLi>
+        )}
       </StUl>
     </StWrap>
   );
@@ -30,8 +32,10 @@ const StUl = styled.ul`
   gap: 10px;
 `;
 
-const TestLi = styled.li`
-  background-color: #8f8fff;
-  padding: 5px 10px;
+const StNoItemLi = styled.li`
+  padding: 50px 15px;
   border-radius: 10px;
+  text-align: center;
+  background-color: #ececec;
+  color: #8f8f8f;
 `;
