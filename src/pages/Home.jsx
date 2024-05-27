@@ -1,11 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import AccountMonth from "../components/AccountMonth";
+import AccountForm from "../components/AccountForm";
+import AccountSection from "../components/AccountSection";
 
-const Home = ({ expenses, setExpenses }) => {
+const Home = ({ month, setMonth }) => {
   return (
     <StWrap>
-      <AccountMonth expenses={expenses} setExpenses={setExpenses} />
+      <AccountForm month={month} setMonth={setMonth} />
+      <AccountMonth month={month} setMonth={setMonth} />
+      <AccountSection />
     </StWrap>
   );
 };

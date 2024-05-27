@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import Router from "./shared/Router";
 
+const date = new Date();
+
 const App = () => {
-  const [expenses, setExpenses] = useState([]);
-  return <Router expenses={expenses} setExpenses={setExpenses} />;
+  const [month, setMonth] = useState(date.getMonth() + 1);
+  return <Router month={month} setMonth={setMonth} />;
 };
 
 export default App;
@@ -26,10 +28,10 @@ export default App;
     
 - [x]  (3) Router 셋업
     - react-router-dom을 이용하여 홈화면과 상세화면에 대한 라우터 설정을 해주세요.
-- [ ]  (4) 전역스타일링 적용
+- [x]  (4) 전역스타일링 적용
     - styled-components 를 이용해 주세요. (App.css, index.css 는 삭제하셔도 좋습니다.)
     - reset.css 코드 적용
-- [ ]  (5) 홈 화면 UI: 배너 및 헤더 파트 UI 구현
+- [x]  (5) 홈 화면 UI: 배너 및 헤더 파트 UI 구현
     - 상세요구사항
         
         월 선택 탭에서 월을 클릭했을 때 어떤 탭이 활성화되었는지 styled-components의 조건부 스타일링을 적용해 보세요.

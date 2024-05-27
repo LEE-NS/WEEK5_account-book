@@ -1,31 +1,23 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import AccountSection from "./AccountSection";
-import AccountForm from "./AccountForm";
-import AccountMonthBtn from "./AccountMonthBtn";
+import AccountMonthItem from "./AccountMonthItem";
 
 const date = new Date();
 
-const AccountMonth = ({ expenses, setExpenses }) => {
-  const [month, setMonth] = useState(date.getMonth() + 1);
-
+const AccountMonth = ({ month, setMonth }) => {
   return (
-    <StWrap>
-      <AccountForm
-        expenses={expenses}
-        setExpenses={setExpenses}
-        month={month}
-        setMonth={setMonth}
-      />
-      <StMonthWrap>
-        <StUl>
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((monthNum) => (
-            <AccountMonthBtn key={monthNum} />
-          ))}
-        </StUl>
-      </StMonthWrap>
-      <AccountSection expenses={expenses} />
-    </StWrap>
+    <StMonthWrap>
+      <StUl>
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((monthNum) => (
+          <AccountMonthItem
+            key={monthNum}
+            monthNum={monthNum}
+            month={month}
+            setMonth={setMonth}
+          />
+        ))}
+      </StUl>
+    </StMonthWrap>
   );
 };
 

@@ -2,12 +2,20 @@ import React from "react";
 import styled from "styled-components";
 import AccountItem from "./AccountItem";
 
-const AccountSection = ({ expenses, setExpenses }) => {
+const AccountSection = ({ month, setMonth }) => {
+  //선택된 달과 일치하는 item만 filter로 가져온다.
+  const parsedMonthItems = JSON.parse(window.localStorage.getItem("expenses"));
+  const filteredMonthItems = parsedMonthItems.filter(
+    (item) => item.date.split("-")[1] === String(month).padStart(2, "0")
+  );
+
   return (
     <StWrap>
       <StUl>
-        {expenses.length !== 0 ? (
-          expenses.map((item) => <AccountItem key={item.id} item={item} />)
+        {filteredMonthItems.length !== 0 ? (
+          filteredMonthItems.map((item) => (
+            <AccountItem key={item.id} item={item} />
+          ))
         ) : (
           <StNoItemLi>지출 내역이 없습니다.</StNoItemLi>
         )}

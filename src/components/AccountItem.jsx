@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const AccountItem = ({ item, expenses, setExpenses }) => {
+const AccountItem = ({ item }) => {
   const navigate = useNavigate();
   const detailNavigate = (item) => {
     navigate(`detail/${item.id}`);

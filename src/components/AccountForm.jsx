@@ -1,19 +1,25 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import uuid from "react-uuid";
 
-const AccountForm = ({ month, setMonth, expenses, setExpenses }) => {
-  const date = useRef("");
+const AccountForm = ({ month, setMonth }) => {
+  const [expenses, setExpenses] = useState([]);
+
+  const date = useRef(`2024-${String(month).padStart(2, "0")}-01`);
   const money = useRef(null);
   const category = useRef("");
   const job = useRef("");
+
+  useEffect(() => {
+    date.current.value = `2024-${String(month).padStart(2, "0")}-01`;
+  }, [month]);
 
   const addItem = () => {
     event.preventDefault();
 
     /* 유효성 검사 */
     if (
-      !date.current.value ||
+      !date.current.value.trim() ||
       !money.current.value.trim() ||
       !category.current.value.trim() ||
       !job.current.value.trim()
@@ -34,10 +40,12 @@ const AccountForm = ({ month, setMonth, expenses, setExpenses }) => {
 
     const totalExpenses = [...expenses, newExpense];
 
+    setExpenses(totalExpenses);
+
     window.localStorage.setItem("expenses", JSON.stringify(totalExpenses));
 
     /* form 초기화 */
-    date.current.value = "";
+    setDate("");
     money.current.value = null;
     category.current.value = "";
     job.current.value = "";
