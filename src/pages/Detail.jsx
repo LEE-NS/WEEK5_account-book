@@ -2,12 +2,12 @@ import React, { useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
-const Detail = ({ month, setMonth, expenses, setExpenses }) => {
+const Detail = ({ expenses, setExpenses }) => {
   const param = useParams();
   const navigate = useNavigate();
 
-  const parsedExpenses = JSON.parse(localStorage.getItem("expenses"));
-  const filteredItem = parsedExpenses.filter((item) => item.id === param.id)[0];
+  const filteredItem = expenses.filter((item) => item.id === param.id)[0];
+  const filteredItemIndex = expenses.indexOf(filteredItem);
 
   const date = useRef("");
   const money = useRef(null);
@@ -21,8 +21,54 @@ const Detail = ({ month, setMonth, expenses, setExpenses }) => {
     job.current.value = filteredItem.job;
   }, []);
 
-  const updateItem = () => {};
-  const removeItem = () => {};
+  const updateItem = (e) => {
+    e.preventDefault();
+
+    /* 유효성 검사 */
+    if (
+      !date.current.value.trim() ||
+      isNaN(Date.parse(String(date.current.value.trim())))
+    ) {
+      return alert("올바른 날짜 형식이 아닙니다. (예시 : 0000-00-00)");
+    }
+
+    if (
+      !money.current.value.trim() ||
+      !category.current.value.trim() ||
+      !job.current.value.trim()
+    ) {
+      return alert("올바른 입력이 아니거나 입력이 없습니다.");
+    }
+
+    const updatedItem = {
+      id: filteredItem.id,
+      date: date.current.value,
+      money: money.current.value.replace(
+        /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+        ","
+      ),
+      category: category.current.value,
+      job: job.current.value,
+    };
+
+    // parsedExpense에서 filteredItem제거 후 updatedItem을 filteredItem index로 삽입
+    expenses.splice(filteredItemIndex, 1, updatedItem);
+
+    localStorage.setItem("expenses", JSON.stringify(expenses));
+
+    setExpenses(expenses);
+
+    navigate("../");
+  };
+
+  const removeItem = (e) => {
+    e.preventDefault();
+    expenses.splice(filteredItemIndex, 1);
+    localStorage.setItem("expenses", JSON.stringify(expenses));
+    setExpenses(expenses);
+    navigate("../");
+  };
+
   const goPrevPage = () => {
     navigate("../");
   };
@@ -54,8 +100,8 @@ const Detail = ({ month, setMonth, expenses, setExpenses }) => {
             </StLi>
           </StUl>
           <StButtonWrap>
-            <StButton>수정</StButton>
-            <StButton>삭제</StButton>
+            <StButton onClick={updateItem}>수정</StButton>
+            <StButton onClick={removeItem}>삭제</StButton>
             <StButton onClick={goPrevPage}>뒤로가기</StButton>
           </StButtonWrap>
         </StFormInner>

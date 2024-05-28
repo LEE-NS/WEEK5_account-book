@@ -19,7 +19,15 @@ const App = () => {
     if (localStorage.getItem("expenses")) {
       return JSON.parse(localStorage.getItem("expenses"));
     } else {
-      return [];
+      return [
+        {
+          id: "1",
+          date: "2024-11-11",
+          money: "9,999",
+          category: "식비",
+          job: "밥",
+        },
+      ];
     }
   });
 

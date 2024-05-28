@@ -30,7 +30,7 @@ const AccountForm = ({ month, expenses, setExpenses }) => {
       !category.current.value.trim() ||
       !job.current.value.trim()
     ) {
-      return alert("올바르지 않은 양식이거나 양식이 비어있습니다.");
+      return alert("올바른 입력이 아니거나 입력이 없습니다.");
     }
 
     const newExpense = {

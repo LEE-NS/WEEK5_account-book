@@ -13,18 +13,8 @@ const Home = ({ month, setMonth, expenses, setExpenses }) => {
         expenses={expenses}
         setExpenses={setExpenses}
       />
-      <AccountMonth
-        month={month}
-        setMonth={setMonth}
-        expenses={expenses}
-        setExpenses={setExpenses}
-      />
-      <AccountSection
-        month={month}
-        setMonth={setMonth}
-        expenses={expenses}
-        setExpenses={setExpenses}
-      />
+      <AccountMonth month={month} setMonth={setMonth} />
+      <AccountSection expenses={expenses} />
     </StWrap>
   );
 };

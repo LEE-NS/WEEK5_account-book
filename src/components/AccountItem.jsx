@@ -13,7 +13,7 @@ const AccountItem = ({ item }) => {
       <StSideDetail>
         <StDate>{item.date}</StDate>
         <div>
-          <span>{item.category}</span> - <span>{item.job}</span>
+          <StCategory>{item.category}</StCategory> - <StJob>{item.job}</StJob>
         </div>
       </StSideDetail>
       <StMoney>{item.money} 원</StMoney>
@@ -29,6 +29,7 @@ const StLi = styled.li`
   align-items: center;
   padding: 15px;
   border-radius: 10px;
+
   background-color: #ececec;
 `;
 const StDate = styled.p`
@@ -42,4 +43,21 @@ const StSideDetail = styled.div`
 `;
 const StMoney = styled.p`
   font-weight: 700;
+`;
+const StCategory = styled.span`
+  display: inline-block;
+  max-width: 150px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+`;
+
+const StJob = styled.span`
+  display: inline-block;
+  max-width: 400px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 `;

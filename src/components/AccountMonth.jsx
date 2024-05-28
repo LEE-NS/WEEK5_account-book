@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import AccountMonthItem from "./AccountMonthItem";
-
-const date = new Date();
 
 const AccountMonth = ({ month, setMonth }) => {
   return (
@@ -12,7 +10,6 @@ const AccountMonth = ({ month, setMonth }) => {
           <AccountMonthItem
             key={monthNum}
             monthNum={monthNum}
-            month={month}
             setMonth={setMonth}
           />
         ))}
@@ -23,11 +20,6 @@ const AccountMonth = ({ month, setMonth }) => {
 
 export default AccountMonth;
 
-const StWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
 const StMonthWrap = styled.div`
   width: 800px;
   padding: 20px;
