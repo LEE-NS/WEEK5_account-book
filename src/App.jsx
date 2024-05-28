@@ -1,14 +1,46 @@
 import React, { useState } from "react";
 import Router from "./shared/Router";
+import styled from "styled-components";
 
 const date = new Date();
 
 const App = () => {
-  const [month, setMonth] = useState(date.getMonth() + 1);
-  return <Router month={month} setMonth={setMonth} />;
+  const [month, setMonth] = useState(() => {
+    if (localStorage.getItem("selectedMonth")) {
+      return localStorage.getItem("selectedMonth").padStart(2, "0");
+    } else {
+      const init = date.getMonth() + 1;
+      localStorage.setItem("selectedMonth", JSON.stringify(init));
+      return init;
+    }
+  });
+
+  const [expenses, setExpenses] = useState(() => {
+    if (localStorage.getItem("expenses")) {
+      return JSON.parse(localStorage.getItem("expenses"));
+    } else {
+      return [];
+    }
+  });
+
+  return (
+    <Wrap>
+      <Router
+        month={month}
+        setMonth={setMonth}
+        expenses={expenses}
+        setExpenses={setExpenses}
+      />
+    </Wrap>
+  );
 };
 
 export default App;
+
+const Wrap = styled.div`
+  background-color: #d1f596;
+  height: 100vh;
+`;
 
 /* 
 아래 순서대로 진행하시는 것을 권장 드립니다. 본인이 할 수 있는 항목까지 최대한 도전해 보세요!
@@ -38,7 +70,7 @@ export default App;
         
         ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/83c75a39-3aba-4ba4-a792-7aefe4b07895/16b27203-138b-47da-ab6e-12f5c5e3b308/Untitled.png)
         
-- [ ]  (6) 홈 화면 UI: Dummy Data(fakeData.json)를 이용한 리스트 UI 구현
+- [x]  (6) 홈 화면 UI: Dummy Data(fakeData.json)를 이용한 리스트 UI 구현
     - fakeData.json
         
         참고:  제공해 드린 fakedata 와 같은 형식을 이용하실 필요는 없습니다. 자유롭게 데이터 형식을 택하셔도 무방합니다. 
@@ -111,7 +143,7 @@ export default App;
         
         ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/83c75a39-3aba-4ba4-a792-7aefe4b07895/6b26e455-425b-47e7-859c-4eae710f72cd/Untitled.png)
         
-- [ ]  (7) 지출 항목 입력창 작성하여 지출 항목 등록 기능 구현
+- [x]  (7) 지출 항목 입력창 작성하여 지출 항목 등록 기능 구현
     - 상세요구사항
         
         1)  날짜, 항목, 금액, 내용을 입력하고 지출 항목을 등록하세요.
@@ -124,7 +156,7 @@ export default App;
         
         ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/83c75a39-3aba-4ba4-a792-7aefe4b07895/df1b6498-503e-48d0-bd24-0e3c8ae9ff30/Untitled.png)
         
-- [ ]  (8) 홈화면의 지출 항목 클릭 시 상세화면으로 이동 구현
+- [x]  (8) 홈화면의 지출 항목 클릭 시 상세화면으로 이동 구현
     - 상세화면 이동 시 클릭한 지출 항목의 id값을 가지고 이동해 주세요.
 - [ ]  (9) 지출 수정화면 UI 구현
     - 상세요구사항

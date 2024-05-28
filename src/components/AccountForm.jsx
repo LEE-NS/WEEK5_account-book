@@ -1,30 +1,36 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import uuid from "react-uuid";
 
-const AccountForm = ({ month, setMonth }) => {
-  const [expenses, setExpenses] = useState([]);
+const AccountForm = ({ month, expenses, setExpenses }) => {
+  const dateInit = `2024-${String(month).padStart(2, "0")}-01`;
 
-  const date = useRef(`2024-${String(month).padStart(2, "0")}-01`);
+  const date = useRef(dateInit);
   const money = useRef(null);
   const category = useRef("");
   const job = useRef("");
 
   useEffect(() => {
-    date.current.value = `2024-${String(month).padStart(2, "0")}-01`;
+    date.current.value = dateInit;
   }, [month]);
 
-  const addItem = () => {
-    event.preventDefault();
+  const addItem = (e) => {
+    e.preventDefault();
 
     /* 유효성 검사 */
     if (
       !date.current.value.trim() ||
+      isNaN(Date.parse(String(date.current.value.trim())))
+    ) {
+      return alert("올바른 날짜 형식이 아닙니다. (예시 : 0000-00-00)");
+    }
+
+    if (
       !money.current.value.trim() ||
       !category.current.value.trim() ||
       !job.current.value.trim()
     ) {
-      return alert("내용을 모두 입력하십시오");
+      return alert("올바르지 않은 양식이거나 양식이 비어있습니다.");
     }
 
     const newExpense = {
@@ -45,7 +51,7 @@ const AccountForm = ({ month, setMonth }) => {
     window.localStorage.setItem("expenses", JSON.stringify(totalExpenses));
 
     /* form 초기화 */
-    setDate("");
+    date.current.value = dateInit;
     money.current.value = null;
     category.current.value = "";
     job.current.value = "";
@@ -106,10 +112,12 @@ const StButton = styled.button`
   font-weight: 700;
   border: none;
   border-radius: 10px;
-  background-color: #ececec;
   cursor: pointer;
+  transition: background-color 0.2s;
+  background-color: #ececec;
 
   &:hover {
+    transition: background-color 0.2s;
     background-color: #c4c4c4;
   }
 `;
