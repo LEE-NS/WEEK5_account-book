@@ -10,6 +10,7 @@ const AccountMonth = ({ month, setMonth }) => {
           <AccountMonthItem
             key={monthNum}
             monthNum={monthNum}
+            month={month}
             setMonth={setMonth}
           />
         ))}

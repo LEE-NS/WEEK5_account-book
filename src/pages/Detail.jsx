@@ -78,7 +78,8 @@ const Detail = ({ expenses, setExpenses }) => {
     navigate("../");
   };
 
-  const goPrevPage = () => {
+  const goPrevPage = (e) => {
+    e.preventDefault();
     navigate("../");
   };
 
@@ -202,9 +203,3 @@ const StButtonWrap = styled.div`
   display: flex;
   gap: 10px;
 `;
-
-/* 
-button 누를 시 Home으로 돌아가야 한다.(선택된 월별 카테고리는 보존되어야 함)
-
-
-*/

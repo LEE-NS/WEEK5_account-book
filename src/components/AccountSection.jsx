@@ -2,11 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import AccountItem from "./AccountItem";
 
-const AccountSection = ({ expenses }) => {
+const AccountSection = ({ expenses, month }) => {
   //선택된 달과 일치하는 item만 filter로 가져온다.
-  const parsedMonth = localStorage.getItem("selectedMonth");
   const filteredMonthItems = expenses.filter(
-    (item) => item.date.split("-")[1] === parsedMonth.padStart(2, "0")
+    (item) => item.date.split("-")[1] === String(month).padStart(2, "0")
   );
 
   return (

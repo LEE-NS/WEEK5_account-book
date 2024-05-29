@@ -1,21 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
-const AccountMonthItem = ({ monthNum, setMonth }) => {
-  const [activeMonth, setActiveMonth] = useState(
-    +localStorage.getItem("selectedMonth")
-  );
+const AccountMonthItem = ({ monthNum, month, setMonth }) => {
   const totalSetMonth = (monthNum) => {
     localStorage.setItem("selectedMonth", monthNum);
     setMonth(monthNum);
-    setActiveMonth(monthNum);
-    console.log(activeMonth);
   };
 
   return (
     <li>
       <StButton
-        $isClicked={monthNum === +localStorage.getItem("selectedMonth")}
+        $isClicked={monthNum === +month}
         onClick={() => {
           totalSetMonth(monthNum);
         }}
