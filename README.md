@@ -4,9 +4,9 @@ React와 Redux를 통해 가계부 페이지를 제작해본다.
 
 <br>
 
-props-drilling : props만을 이용해서 제작
-context : Context API를 이용해서 제작
-redux : redux(RTK)를 이용해서 제작
+- props-drilling : props만을 이용해서 제작
+- context : Context API를 이용해서 제작
+- redux : redux(RTK)를 이용해서 제작
 
 ## Skill Stacks
 
