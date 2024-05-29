@@ -4,12 +4,11 @@ import AccountItem from "./AccountItem";
 import { AccountContext } from "../context/AccountContext";
 
 const AccountSection = () => {
-  const { expenses } = useContext(AccountContext);
+  const { expenses, month } = useContext(AccountContext);
 
   //선택된 달과 일치하는 item만 filter로 가져온다.
-  const parsedMonth = localStorage.getItem("selectedMonth");
   const filteredMonthItems = expenses.filter(
-    (item) => item.date.split("-")[1] === parsedMonth.padStart(2, "0")
+    (item) => item.date.split("-")[1] === String(month).padStart(2, "0")
   );
 
   return (

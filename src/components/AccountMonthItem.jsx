@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { AccountContext } from "../context/AccountContext";
 
 const AccountMonthItem = ({ monthNum }) => {
-  const { setMonth } = useContext(AccountContext);
+  const { month, setMonth } = useContext(AccountContext);
 
   const totalSetMonth = (monthNum) => {
     localStorage.setItem("selectedMonth", monthNum);
@@ -13,7 +13,7 @@ const AccountMonthItem = ({ monthNum }) => {
   return (
     <li>
       <StButton
-        $isClicked={monthNum === +localStorage.getItem("selectedMonth")}
+        $isClicked={monthNum === +month}
         onClick={() => {
           totalSetMonth(monthNum);
         }}
