@@ -1,10 +1,12 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import uuid from "react-uuid";
-import { AccountContext } from "../context/AccountContext";
+import { useDispatch, useSelector } from "react-redux";
+import { addExpenses } from "../redux/slices/expensesSlice";
 
 const AccountForm = () => {
-  const { month, expenses, setExpenses } = useContext(AccountContext);
+  const dispatch = useDispatch();
+  const month = useSelector((state) => state.month);
 
   const dateInit = `2024-${String(month).padStart(2, "0")}-01`;
 
@@ -20,7 +22,6 @@ const AccountForm = () => {
   const addItem = (e) => {
     e.preventDefault();
 
-    /* 유효성 검사 */
     if (
       !date.current.value.trim() ||
       isNaN(Date.parse(String(date.current.value.trim())))
@@ -47,11 +48,7 @@ const AccountForm = () => {
       job: job.current.value,
     };
 
-    const totalExpenses = [...expenses, newExpense];
-
-    setExpenses(totalExpenses);
-
-    window.localStorage.setItem("expenses", JSON.stringify(totalExpenses));
+    dispatch(addExpenses(newExpense));
 
     /* form 초기화 */
     date.current.value = dateInit;

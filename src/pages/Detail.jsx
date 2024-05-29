@@ -1,10 +1,14 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { AccountContext } from "../context/AccountContext";
+import { useDispatch, useSelector } from "react-redux";
+import { removeExpenses, updateExpenses } from "../redux/slices/expensesSlice";
 
 const Detail = () => {
-  const { expenses, setExpenses } = useContext(AccountContext);
+  // const { expenses, setExpenses } = useContext(AccountContext);
+  const dispatch = useDispatch();
+  const expenses = useSelector((state) => state.expenses);
+
   const param = useParams();
   const navigate = useNavigate();
 
@@ -58,11 +62,7 @@ const Detail = () => {
     };
 
     // parsedExpense에서 filteredItem제거 후 updatedItem을 filteredItem index로 삽입
-    expenses.splice(filteredItemIndex, 1, updatedItem);
-
-    localStorage.setItem("expenses", JSON.stringify(expenses));
-
-    setExpenses(expenses);
+    dispatch(updateExpenses({ filteredItemIndex, updatedItem }));
 
     navigate("../");
   };
@@ -73,9 +73,8 @@ const Detail = () => {
     const confirmed = confirm("삭제하시겠습니까?");
     if (!confirmed) return;
 
-    expenses.splice(filteredItemIndex, 1);
-    localStorage.setItem("expenses", JSON.stringify(expenses));
-    setExpenses(expenses);
+    dispatch(removeExpenses(filteredItemIndex));
+
     navigate("../");
   };
 
@@ -207,6 +206,4 @@ const StButtonWrap = styled.div`
 
 /* 
 button 누를 시 Home으로 돌아가야 한다.(선택된 월별 카테고리는 보존되어야 함)
-
-
 */

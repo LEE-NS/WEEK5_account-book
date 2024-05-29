@@ -1,21 +1,18 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
-import { AccountContext } from "../context/AccountContext";
+import { useDispatch, useSelector } from "react-redux";
+import { setTotalMonth } from "../redux/slices/monthSlice";
 
 const AccountMonthItem = ({ monthNum }) => {
-  const { setMonth } = useContext(AccountContext);
-
-  const totalSetMonth = (monthNum) => {
-    localStorage.setItem("selectedMonth", monthNum);
-    setMonth(monthNum);
-  };
+  const dispatch = useDispatch();
+  const month = useSelector((state) => state.month);
 
   return (
     <li>
       <StButton
-        $isClicked={monthNum === +localStorage.getItem("selectedMonth")}
+        $isClicked={monthNum === month}
         onClick={() => {
-          totalSetMonth(monthNum);
+          dispatch(setTotalMonth(monthNum));
         }}
       >
         {monthNum}월

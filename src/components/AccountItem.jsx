@@ -29,8 +29,15 @@ const StLi = styled.li`
   align-items: center;
   padding: 15px;
   border-radius: 10px;
+  transition: background-color 0.2s;
+  cursor: pointer;
 
   background-color: #ececec;
+
+  &:hover {
+    transition: background-color 0.2s;
+    background-color: #c4c4c4;
+  }
 `;
 const StDate = styled.p`
   font-size: 13px;
