@@ -10,7 +10,7 @@ const AccountMonthItem = ({ monthNum }) => {
   return (
     <li>
       <StButton
-        $isClicked={monthNum === month}
+        $isClicked={monthNum === +month}
         onClick={() => {
           dispatch(setTotalMonth(monthNum));
         }}

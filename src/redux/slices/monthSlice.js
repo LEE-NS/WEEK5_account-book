@@ -4,7 +4,7 @@ const date = new Date();
 
 const initialState = () => {
   if (localStorage.getItem("selectedMonth")) {
-    return +localStorage.getItem("selectedMonth");
+    return localStorage.getItem("selectedMonth").padStart(2, "0");
   } else {
     const init = date.getMonth() + 1;
     localStorage.setItem("selectedMonth", JSON.stringify(init));
