@@ -4,17 +4,12 @@ import AccountMonth from "../components/AccountMonth";
 import AccountForm from "../components/AccountForm";
 import AccountSection from "../components/AccountSection";
 
-const Home = ({ month, setMonth, expenses, setExpenses }) => {
+const Home = () => {
   return (
     <StWrap>
-      <AccountForm
-        month={month}
-        setMonth={setMonth}
-        expenses={expenses}
-        setExpenses={setExpenses}
-      />
-      <AccountMonth month={month} setMonth={setMonth} />
-      <AccountSection expenses={expenses} />
+      <AccountForm />
+      <AccountMonth />
+      <AccountSection />
     </StWrap>
   );
 };

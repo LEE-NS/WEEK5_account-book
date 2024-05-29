@@ -2,16 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import AccountMonthItem from "./AccountMonthItem";
 
-const AccountMonth = ({ month, setMonth }) => {
+const AccountMonth = () => {
   return (
     <StMonthWrap>
       <StUl>
         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((monthNum) => (
-          <AccountMonthItem
-            key={monthNum}
-            monthNum={monthNum}
-            setMonth={setMonth}
-          />
+          <AccountMonthItem key={monthNum} monthNum={monthNum} />
         ))}
       </StUl>
     </StMonthWrap>
@@ -33,5 +29,3 @@ const StUl = styled.ul`
   gap: 10px;
   flex-wrap: wrap;
 `;
-
-/* 스타일 이외의 로직만 수도 코드로 기록하고 나머지 모두 삭제 */

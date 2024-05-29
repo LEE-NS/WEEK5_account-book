@@ -1,8 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { AccountContext } from "../context/AccountContext";
 
-const Detail = ({ expenses, setExpenses }) => {
+const Detail = () => {
+  const { expenses, setExpenses } = useContext(AccountContext);
   const param = useParams();
   const navigate = useNavigate();
 
@@ -40,6 +42,10 @@ const Detail = ({ expenses, setExpenses }) => {
       return alert("올바른 입력이 아니거나 입력이 없습니다.");
     }
 
+    /* 수정 진행 여부 */
+    const confirmed = confirm("수정을 완료하시겠습니까?");
+    if (!confirmed) return;
+
     const updatedItem = {
       id: filteredItem.id,
       date: date.current.value,
@@ -63,13 +69,18 @@ const Detail = ({ expenses, setExpenses }) => {
 
   const removeItem = (e) => {
     e.preventDefault();
+
+    const confirmed = confirm("삭제하시겠습니까?");
+    if (!confirmed) return;
+
     expenses.splice(filteredItemIndex, 1);
     localStorage.setItem("expenses", JSON.stringify(expenses));
     setExpenses(expenses);
     navigate("../");
   };
 
-  const goPrevPage = () => {
+  const goPrevPage = (e) => {
+    e.preventDefault();
     navigate("../");
   };
 

@@ -1,8 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import styled from "styled-components";
 import uuid from "react-uuid";
+import { AccountContext } from "../context/AccountContext";
 
-const AccountForm = ({ month, expenses, setExpenses }) => {
+const AccountForm = () => {
+  const { month, expenses, setExpenses } = useContext(AccountContext);
+
   const dateInit = `2024-${String(month).padStart(2, "0")}-01`;
 
   const date = useRef(dateInit);

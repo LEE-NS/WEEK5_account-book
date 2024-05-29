@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import AccountItem from "./AccountItem";
+import { AccountContext } from "../context/AccountContext";
 
-const AccountSection = ({ expenses }) => {
+const AccountSection = () => {
+  const { expenses } = useContext(AccountContext);
+
   //선택된 달과 일치하는 item만 filter로 가져온다.
   const parsedMonth = localStorage.getItem("selectedMonth");
   const filteredMonthItems = expenses.filter(

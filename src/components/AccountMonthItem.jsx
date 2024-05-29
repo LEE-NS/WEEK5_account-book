@@ -1,15 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import { AccountContext } from "../context/AccountContext";
 
-const AccountMonthItem = ({ monthNum, setMonth }) => {
-  const [activeMonth, setActiveMonth] = useState(
-    +localStorage.getItem("selectedMonth")
-  );
+const AccountMonthItem = ({ monthNum }) => {
+  const { setMonth } = useContext(AccountContext);
+
   const totalSetMonth = (monthNum) => {
     localStorage.setItem("selectedMonth", monthNum);
     setMonth(monthNum);
-    setActiveMonth(monthNum);
-    console.log(activeMonth);
   };
 
   return (
