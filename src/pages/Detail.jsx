@@ -78,7 +78,8 @@ const Detail = ({ expenses, setExpenses }) => {
     navigate("../");
   };
 
-  const goPrevPage = () => {
+  const goPrevPage = (e) => {
+    e.preventDefault();
     navigate("../");
   };
 
