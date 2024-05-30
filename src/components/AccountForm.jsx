@@ -27,7 +27,6 @@ const AccountForm = () => {
     ) {
       return alert("올바른 날짜 형식이 아닙니다. (예시 : 0000-00-00)");
     }
-
     if (
       !money.current.value.trim() ||
       !category.current.value.trim() ||
@@ -51,7 +50,7 @@ const AccountForm = () => {
 
     setExpenses(totalExpenses);
 
-    window.localStorage.setItem("expenses", JSON.stringify(totalExpenses));
+    localStorage.setItem("expenses", JSON.stringify(totalExpenses));
 
     /* form 초기화 */
     date.current.value = dateInit;
