@@ -3,6 +3,7 @@ import styled from "styled-components";
 import uuid from "react-uuid";
 
 const AccountForm = ({ month, expenses, setExpenses }) => {
+  const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
   const dateInit = `2024-${String(month).padStart(2, "0")}-01`;
 
   const date = useRef(dateInit);
@@ -16,15 +17,14 @@ const AccountForm = ({ month, expenses, setExpenses }) => {
 
   const addItem = (e) => {
     e.preventDefault();
-
     /* 유효성 검사 */
     if (
       !date.current.value.trim() ||
+      !dateRegex.test(date.current.value.trim()) ||
       isNaN(Date.parse(String(date.current.value.trim())))
     ) {
       return alert("올바른 날짜 형식이 아닙니다. (예시 : 0000-00-00)");
     }
-
     if (
       !money.current.value.trim() ||
       !category.current.value.trim() ||
@@ -45,12 +45,9 @@ const AccountForm = ({ month, expenses, setExpenses }) => {
     };
 
     const totalExpenses = [...expenses, newExpense];
-
     setExpenses(totalExpenses);
+    localStorage.setItem("expenses", JSON.stringify(totalExpenses));
 
-    window.localStorage.setItem("expenses", JSON.stringify(totalExpenses));
-
-    /* form 초기화 */
     date.current.value = dateInit;
     money.current.value = null;
     category.current.value = "";
