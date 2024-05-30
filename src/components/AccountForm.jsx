@@ -4,6 +4,8 @@ import uuid from "react-uuid";
 import { useDispatch, useSelector } from "react-redux";
 import { addExpenses } from "../redux/slices/expensesSlice";
 
+const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+
 const AccountForm = () => {
   const dispatch = useDispatch();
   const month = useSelector((state) => state.month);
@@ -24,6 +26,7 @@ const AccountForm = () => {
 
     if (
       !date.current.value.trim() ||
+      !dateRegex.test(date.current.value.trim()) ||
       isNaN(Date.parse(String(date.current.value.trim())))
     ) {
       return alert("올바른 날짜 형식이 아닙니다. (예시 : 0000-00-00)");
@@ -40,10 +43,7 @@ const AccountForm = () => {
     const newExpense = {
       id: uuid(),
       date: date.current.value,
-      money: money.current.value.replace(
-        /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
-        ","
-      ),
+      money: money.current.value,
       category: category.current.value,
       job: job.current.value,
     };

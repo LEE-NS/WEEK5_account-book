@@ -4,16 +4,17 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { removeExpenses, updateExpenses } from "../redux/slices/expensesSlice";
 
+const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+
 const Detail = () => {
-  // const { expenses, setExpenses } = useContext(AccountContext);
   const dispatch = useDispatch();
   const expenses = useSelector((state) => state.expenses);
 
   const param = useParams();
   const navigate = useNavigate();
 
-  const filteredItem = expenses.filter((item) => item.id === param.id)[0];
-  const filteredItemIndex = expenses.indexOf(filteredItem);
+  const foundItem = expenses.find((item) => item.id === param.id);
+  const foundItemIndex = expenses.indexOf(foundItem);
 
   const date = useRef("");
   const money = useRef(null);
@@ -21,18 +22,18 @@ const Detail = () => {
   const job = useRef("");
 
   useEffect(() => {
-    date.current.value = filteredItem.date;
-    money.current.value = filteredItem.money.replaceAll(",", "");
-    category.current.value = filteredItem.category;
-    job.current.value = filteredItem.job;
+    date.current.value = foundItem.date;
+    money.current.value = foundItem.money;
+    category.current.value = foundItem.category;
+    job.current.value = foundItem.job;
   }, []);
 
   const updateItem = (e) => {
     e.preventDefault();
-
     /* 유효성 검사 */
     if (
       !date.current.value.trim() ||
+      !dateRegex.test(date.current.value.trim()) ||
       isNaN(Date.parse(String(date.current.value.trim())))
     ) {
       return alert("올바른 날짜 형식이 아닙니다. (예시 : 0000-00-00)");
@@ -45,13 +46,12 @@ const Detail = () => {
     ) {
       return alert("올바른 입력이 아니거나 입력이 없습니다.");
     }
-
     /* 수정 진행 여부 */
     const confirmed = confirm("수정을 완료하시겠습니까?");
     if (!confirmed) return;
 
     const updatedItem = {
-      id: filteredItem.id,
+      id: foundItem.id,
       date: date.current.value,
       money: money.current.value.replace(
         /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
@@ -60,21 +60,15 @@ const Detail = () => {
       category: category.current.value,
       job: job.current.value,
     };
-
-    // parsedExpense에서 filteredItem제거 후 updatedItem을 filteredItem index로 삽입
-    dispatch(updateExpenses({ filteredItemIndex, updatedItem }));
-
+    dispatch(updateExpenses({ foundItemIndex, updatedItem }));
     navigate("../");
   };
 
   const removeItem = (e) => {
     e.preventDefault();
-
     const confirmed = confirm("삭제하시겠습니까?");
     if (!confirmed) return;
-
-    dispatch(removeExpenses(filteredItemIndex));
-
+    dispatch(removeExpenses(foundItemIndex));
     navigate("../");
   };
 
@@ -203,7 +197,3 @@ const StButtonWrap = styled.div`
   display: flex;
   gap: 10px;
 `;
-
-/* 
-button 누를 시 Home으로 돌아가야 한다.(선택된 월별 카테고리는 보존되어야 함)
-*/
