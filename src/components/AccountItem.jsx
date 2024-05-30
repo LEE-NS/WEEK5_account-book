@@ -16,7 +16,9 @@ const AccountItem = ({ item }) => {
           <StCategory>{item.category}</StCategory> - <StJob>{item.job}</StJob>
         </div>
       </StSideDetail>
-      <StMoney>{item.money} 원</StMoney>
+      <StMoney>
+        {String(item.money).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")} 원
+      </StMoney>
     </StLi>
   );
 };

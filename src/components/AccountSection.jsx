@@ -5,8 +5,6 @@ import { AccountContext } from "../context/AccountContext";
 
 const AccountSection = () => {
   const { expenses, month } = useContext(AccountContext);
-
-  //선택된 달과 일치하는 item만 filter로 가져온다.
   const filteredMonthItems = expenses.filter(
     (item) => item.date.split("-")[1] === String(month).padStart(2, "0")
   );

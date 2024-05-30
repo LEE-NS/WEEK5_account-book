@@ -4,7 +4,8 @@ import uuid from "react-uuid";
 import { AccountContext } from "../context/AccountContext";
 
 const AccountForm = () => {
-  const { month, expenses, setExpenses } = useContext(AccountContext);
+  const { month, expenses, setExpenses, dateRegex } =
+    useContext(AccountContext);
 
   const dateInit = `2024-${String(month).padStart(2, "0")}-01`;
 
@@ -23,6 +24,7 @@ const AccountForm = () => {
     /* 유효성 검사 */
     if (
       !date.current.value.trim() ||
+      !dateRegex.test(date.current.value.trim()) ||
       isNaN(Date.parse(String(date.current.value.trim())))
     ) {
       return alert("올바른 날짜 형식이 아닙니다. (예시 : 0000-00-00)");
